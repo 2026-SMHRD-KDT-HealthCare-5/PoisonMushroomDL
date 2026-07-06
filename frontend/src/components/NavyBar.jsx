@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <nav className="flex items-center justify-between mx-auto px-4 py-3">
+    <nav className="flex items-center justify-between w-full px-4 py-3">
       <Link to="/" className="font-bold text-gray-800">
         🍄 독버섯 판별기
       </Link>

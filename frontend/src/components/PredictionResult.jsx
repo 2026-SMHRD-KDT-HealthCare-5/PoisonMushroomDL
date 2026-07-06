@@ -2,7 +2,7 @@ import React from 'react'
 
 // 더미 데이터 (rank 없이 prob만)
 const dummyResult = [
-  { name: "흰주름버섯", latin: "Agaricus arvensis", isPoisonous: false, prob: 6.4 },
+  { name: "", latin: "Agaricus arvensis", isPoisonous: false, prob: 6.4 },
   { name: "독우산광대버섯", latin: "Amanita virosa", isPoisonous: true, prob: 91.2 },
   { name: "천사광대버섯", latin: "Amanita verna", isPoisonous: true, prob: 2.4 },
 ];

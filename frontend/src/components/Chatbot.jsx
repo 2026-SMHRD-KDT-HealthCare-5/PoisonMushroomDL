@@ -2,14 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { Send, Loader2, AlertCircle } from "lucide-react";
 
 // MushroomChatbot 컴포넌트
-export default function MushroomChatbot({ classCode = "amanita_virosa", speciesName = "독우산광대버섯" }) {
+export default function MushroomChatbot({ classCode, speciesName }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
       content: `${speciesName}에 대해 궁금한 점을 물어보세요. 예: "먹은 지 3시간 지났는데 괜찮나요?"`,
     },
   ]);
-  
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -53,10 +53,21 @@ export default function MushroomChatbot({ classCode = "amanita_virosa", speciesN
     }
   }
 
+  if (!classCode) {
+    return (
+      <div className="w-full mx-auto bg-white rounded-xl border border-gray-200 flex-1 min-h-0 flex items-center justify-center p-6">
+        <div className="text-center">
+          <p className="text-sm text-gray-400">챗봇 대기 중</p>
+          <p className="text-xs text-gray-400 mt-1">이미지를 분석하면 예측된 종에 대해 질문할 수 있습니다.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
 
-    <div className="w-full max-w-md mx-auto bg-white rounded-xl border border-gray-200 flex flex-col overflow-hidden">
-      
+    <div className="w-full mx-auto bg-white rounded-xl border border-gray-200 flex flex-col overflow-hidden flex-1 min-h-0">
+
       {/* 헤더 영역 */}
       <div className="px-4 py-3 border-b border-gray-200">
         <p className="text-sm font-medium text-gray-900">더 궁금한 점 물어보기</p>
@@ -64,7 +75,7 @@ export default function MushroomChatbot({ classCode = "amanita_virosa", speciesN
       </div>
 
       {/* 채팅 메시지 영역 */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 max-h-96 min-h-[240px]">
+      <div ref={scrollRef} className="flex-1 min-h-[80px] overflow-y-auto px-4 py-3 space-y-3">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
@@ -128,7 +139,7 @@ export default function MushroomChatbot({ classCode = "amanita_virosa", speciesN
       {/* 하단 안내 문구 */}
       <div className="bg-amber-50 px-4 py-2">
         <p className="text-[11px] text-amber-800 leading-snug">
-          본 답변은 교육·학습용이며 실제 채집·섭취 판단에 사용하지 마십시오. 이상 증상 시 즉시 의료기관에 문의하십시오.
+          본 답변은 참고용 보조 정보이며 실제 진단·치료 결정은 반드시 의료진 판단에 따라야 합니다.
         </p>
       </div>
     </div>

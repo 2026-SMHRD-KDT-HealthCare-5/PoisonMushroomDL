@@ -1,15 +1,23 @@
-// 실제 백엔드 연동 전, 가짜 응답을 돌려주는 함수
+// 백엔드 /predict 호출 (이미지 업로드 -> top-3 예측 + RAG 정보)
 export async function predictMushroom(imageFile) {
-  // 실제로는 여기서 fetch로 백엔드 호출
-  // 지금은 1초 후 더미 결과 반환 (로딩 흉내)
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const formData = new FormData();
+  formData.append("file", imageFile);
 
+  const res = await fetch("/predict", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error("예측 요청 실패");
+  }
+
+  const data = await res.json();
   return {
-    predictions: [
-      { name: "흰주름버섯", latin: "Agaricus arvensis", isPoisonous: false, prob: 6.4 },
-      { name: "독우산광대버섯", latin: "Amanita virosa", isPoisonous: true, prob: 91.2 },
-      { name: "천사광대버섯", latin: "Amanita verna", isPoisonous: true, prob: 2.4 },
-    ],
-    gradcamImage: null, // 백엔드가 생성한 히트맵 URL
+    predictions: data.predictions.map((p) => ({
+      ...p,
+      name: p.name_kr, // PredictionResult가 기대하는 필드명
+    })),
+    ragInfo: data.ragInfo,
   };
 }
