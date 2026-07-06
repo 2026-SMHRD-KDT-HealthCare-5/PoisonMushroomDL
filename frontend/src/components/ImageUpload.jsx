@@ -13,10 +13,10 @@ function ImageUpload({ onImageSelect, onPredict, loading }) {
   };
 
   return (
-    <div className=" p-4 bg-white rounded-lg shadow">
+    <div className="p-4 bg-white rounded-lg shadow">
       <p className="mb-3 font-semibold text-gray-800">표본 이미지</p>
 
-      <label className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-red-400">
+      <label className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-red-400">
         {preview ? (
           <img src={preview} alt="미리보기" className="h-full object-contain rounded" />
         ) : (

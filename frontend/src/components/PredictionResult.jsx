@@ -27,7 +27,6 @@ function PredictionResult({ results = dummyResult }) {
           return (
             <div key={r.name}> 
             {/*이름*/}
-
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm">
                   {/*순위+ 이름 */}
@@ -49,8 +48,8 @@ function PredictionResult({ results = dummyResult }) {
                 
                 {/*확률*/}
                 <span className="text-sm font-semibold">{r.prob}%</span>
-
               </div>
+
               {/*확률바*/}
               <div className="h-2 w-full rounded bg-gray-100">
                 <div
